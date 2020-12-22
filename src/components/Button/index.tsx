@@ -1,7 +1,7 @@
 import plusnew, { component, Props, store } from "@plusnew/core";
 
 type props = {
-  type: "submit";
+  type: "submit" | "button";
   disabled: boolean;
   onclick: () => unknown;
   label: string;

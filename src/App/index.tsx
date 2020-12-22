@@ -1,10 +1,14 @@
-import plusnew, { component, PortalExit, store } from "@plusnew/core";
+import plusnew, { Async, component, PortalExit, store } from "@plusnew/core";
+import localStoreFactory from "util/localStoreFactory";
+import { request } from "util/request";
 import style from "./app.scss";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
 
 export default component(__dirname, () => {
-  const connection = store<null | string>(null); // When null, then we don't have an active connection, when filled it is the connected UUID
+  const connection = localStoreFactory("uid", null as string | null, (value) =>
+    store(value)
+  ); // When null, then we don't have an active connection, when filled it is the connected uid
 
   return (
     <div class={style.container}>
@@ -13,7 +17,19 @@ export default component(__dirname, () => {
           connectionState === null ? (
             <Login onlogin={connection.dispatch} />
           ) : (
-            <Dashboard uuid={connectionState} />
+            <Async
+              key={connectionState}
+              pendingIndicator={"loading..."}
+              constructor={() => request("status", { uid: connectionState })}
+            >
+              {(result) =>
+                result.status === "connected" ? (
+                  <Dashboard uid={connectionState} />
+                ) : (
+                  <Login onlogin={connection.dispatch} />
+                )
+              }
+            </Async>
           )
         }
       </connection.Observer>
