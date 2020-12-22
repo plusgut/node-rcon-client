@@ -4,7 +4,7 @@ Welcome to your Application with plusnew
 
 To start developing you simply have to write this in your shell:
 ````
-  # yarn run start
+  # yarn run start --env proxy=https://codingbutter.com:2080
 ````
 
 

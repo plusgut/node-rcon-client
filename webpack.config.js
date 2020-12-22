@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 
-module.exports = (_env, argv) => ({
+module.exports = (env, argv) => ({
   context: path.join(__dirname, "src"),
   entry: ["./index.tsx"],
   mode: argv.mode,
@@ -31,7 +31,7 @@ module.exports = (_env, argv) => ({
             options: {
               sourceMap: true,
               modules: {
-                localIdentName: "[name]__[hash:base64:5]",
+                localIdentName: "[local]__[hash:base64:5]",
               },
             },
           },
@@ -94,6 +94,13 @@ module.exports = (_env, argv) => ({
           port: 3000,
           clientLogLevel: "info",
           historyApiFallback: true,
+          proxy: {
+            "/rcon": {
+              target: env.proxy,
+              changeOrigin: true,
+              secure: false
+            }
+          }
         }
       : undefined,
 });

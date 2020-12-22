@@ -25,6 +25,8 @@ export default component(__dirname, (Props: Props<props>) => {
         {(settingsState) => (
           <>
             <Input
+              name="username"
+              autocomplete="username"
               type="text"
               value={settingsState.host}
               onchange={(value) =>
@@ -43,6 +45,8 @@ export default component(__dirname, (Props: Props<props>) => {
               }}
             />
             <Input
+              name="password"
+              autocomplete="current-password"
               type="password"
               value={settingsState.password}
               onchange={(value) =>
@@ -52,6 +56,7 @@ export default component(__dirname, (Props: Props<props>) => {
             <Props>
               {(props) => (
                 <Button
+                  type="submit"
                   disabled={
                     settingsState.host === "" || settingsState.password === ""
                   }

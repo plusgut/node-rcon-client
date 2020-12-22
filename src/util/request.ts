@@ -1,4 +1,4 @@
-const API_BASE = "https://codingbutter.com:2080/rcon/";
+const API_BASE = "/rcon";
 
 export function request(
   endpoint: "connect",

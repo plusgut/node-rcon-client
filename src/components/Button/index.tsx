@@ -1,6 +1,7 @@
 import plusnew, { component, Props, store } from "@plusnew/core";
 
 type props = {
+  type: "submit";
   disabled: boolean;
   onclick: () => unknown;
   label: string;
@@ -15,6 +16,7 @@ export default component(__dirname, (Props: Props<props>) => {
         <loading.Observer>
           {(loadingState) => (
             <button
+              type={props.type}
               disabled={loadingState || props.disabled}
               onclick={() => {
                 const result = props.onclick();
