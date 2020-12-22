@@ -13,7 +13,7 @@ export function request(
   parameter: {
     uid: string;
   }
-): Promise<{ status: "connected" } | { status: "not_connected" }>;
+): Promise<{ status: "connected" }>;
 export function request(
   endpoint: "send",
   parameter: {

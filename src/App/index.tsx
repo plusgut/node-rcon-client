@@ -20,7 +20,11 @@ export default component(__dirname, () => {
             <Async
               key={connectionState}
               pendingIndicator={"loading..."}
-              constructor={() => request("status", { uid: connectionState })}
+              constructor={() =>
+                request("status", { uid: connectionState }).catch(() => ({
+                  status: "not_connected" as const,
+                }))
+              }
             >
               {(result) =>
                 result.status === "connected" ? (
