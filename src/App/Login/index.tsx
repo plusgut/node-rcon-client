@@ -55,11 +55,11 @@ export default component(__dirname, (Props: Props<props>) => {
                   disabled={
                     settingsState.host === "" || settingsState.password === ""
                   }
-                  onclick={() => {
+                  onclick={() =>
                     request("connect", settingsState)
                       .then((result) => props.onlogin(result.uid))
-                      .catch(() => error.dispatch(true));
-                  }}
+                      .catch(() => error.dispatch(true))
+                  }
                   label="connect"
                 />
               )}
