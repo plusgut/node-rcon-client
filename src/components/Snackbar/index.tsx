@@ -5,8 +5,25 @@ type props = {
   onclose: () => void;
 };
 
-export default component(__dirname, (Props: Props<props>) => (
-  <PortalEntrance name="snackbar">
-    <Props>{(props) => <div onclick={props.onclose}>{props.label}</div>}</Props>
-  </PortalEntrance>
-));
+const TIMEOUT = 5000;
+
+export default component(
+  __dirname,
+  (Props: Props<props>, componentInstance) => {
+    const timeoutId = window.setTimeout(
+      () => Props.getState().onclose(),
+      TIMEOUT
+    );
+
+    componentInstance.registerLifecycleHook("componentWillUnmount", () =>
+      window.clearTimeout(timeoutId)
+    );
+    return (
+      <PortalEntrance name="snackbar">
+        <Props>
+          {(props) => <div onclick={props.onclose}>{props.label}</div>}
+        </Props>
+      </PortalEntrance>
+    );
+  }
+);
