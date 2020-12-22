@@ -1,4 +1,4 @@
-import plusnew, { Async, component, PortalExit, store } from "@plusnew/core";
+import plusnew, { component, PortalExit, store } from "@plusnew/core";
 import localStoreFactory from "util/localStoreFactory";
 import { request } from "util/request";
 import style from "./app.scss";
@@ -20,14 +20,16 @@ export default component(__dirname, () => {
     const currentConnection = connection.getState();
     if (currentConnection !== null) {
       let errored = false;
-      request("status", { uid: currentConnection }).catch(() => {
-        errored = true;
-        verified.dispatch(verifiedType.notConnected);
-      }).then(() => {
-        if(errored === false) {
-          verified.dispatch(verifiedType.connected);
-        }
-      };
+      request("status", { uid: currentConnection })
+        .catch(() => {
+          errored = true;
+          verified.dispatch(verifiedType.notConnected);
+        })
+        .then(() => {
+          if (errored === false) {
+            verified.dispatch(verifiedType.connected);
+          }
+        });
     }
   }
 
