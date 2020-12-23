@@ -76,6 +76,8 @@ module.exports = (env, argv) => ({
     }),
     new HtmlWebpackPlugin({
       title: "plusnew app",
+      inject: "head",
+      scriptLoading: "defer",
     }),
     new MiniCssExtractPlugin({
       filename: "css/[name].[hash].css",
