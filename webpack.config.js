@@ -3,7 +3,6 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const { TsConfigPathsPlugin } = require("awesome-typescript-loader");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 
 module.exports = (env, argv) => ({
   context: path.join(__dirname, "src"),
@@ -77,10 +76,6 @@ module.exports = (env, argv) => ({
     }),
     new HtmlWebpackPlugin({
       title: "plusnew app",
-      inject: "head",
-    }),
-    new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: "defer",
     }),
     new MiniCssExtractPlugin({
       filename: "css/[name].[hash].css",
@@ -98,9 +93,9 @@ module.exports = (env, argv) => ({
             "/rcon": {
               target: env.proxy,
               changeOrigin: true,
-              secure: false
-            }
-          }
+              secure: false,
+            },
+          },
         }
       : undefined,
 });
