@@ -20,6 +20,7 @@
   "devDependencies": {
     "@plusnew/enzyme-adapter": "^1.1.0",
     "@plusnew/simulate-dom-events": "^0.1.5",
+    "@types/jest": "^26.0.19",
     "@typescript-eslint/eslint-plugin": "^4.11.0",
     "@typescript-eslint/parser": "^4.11.0",
     "awesome-typescript-loader": "^5.2.1",
