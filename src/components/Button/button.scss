@@ -1,0 +1,6 @@
+.button {
+  &:not(:disabled){
+    background-color: theme("color-accent");
+    color: theme("color-contrast-palette-high");
+  }
+}

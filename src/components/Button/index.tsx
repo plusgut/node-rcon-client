@@ -1,5 +1,6 @@
 import plusnew, { component, Props, store } from "@plusnew/core";
 import { LOADING } from "util/constants";
+import style from "./button.scss";
 
 type props = {
   type: "submit" | "button";
@@ -17,6 +18,7 @@ export default component(__dirname, (Props: Props<props>) => {
         <loading.Observer>
           {(loadingState) => (
             <button
+              class={style.button}
               type={props.type}
               disabled={loadingState || props.disabled}
               onclick={() => {

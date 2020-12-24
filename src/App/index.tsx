@@ -5,6 +5,7 @@ import { request } from "util/request";
 import style from "./app.scss";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
+import Theme from "./Theme";
 
 enum verifiedType {
   connected,
@@ -36,30 +37,32 @@ export default component(__dirname, () => {
 
   return (
     <i18n.Provider language={window.navigator.language.slice(0, 2)}>
-      <div class={style.container}>
-        <connection.Observer>
-          {(connectionState) => (
-            <verified.Observer>
-              {(verifiedState) =>
-                connectionState === null ||
-                verifiedState === verifiedType.notConnected ? (
-                  <Login
-                    onlogin={(uid) => {
-                      connection.dispatch(uid);
-                      verified.dispatch(verifiedType.connected);
-                    }}
-                  />
-                ) : verifiedState === verifiedType.pending ? (
-                  "loading..."
-                ) : (
-                  <Dashboard uid={connectionState} />
-                )
-              }
-            </verified.Observer>
-          )}
-        </connection.Observer>
-        <PortalExit name="snackbar" />
-      </div>
+      <Theme>
+        <div class={style.container}>
+          <connection.Observer>
+            {(connectionState) => (
+              <verified.Observer>
+                {(verifiedState) =>
+                  connectionState === null ||
+                  verifiedState === verifiedType.notConnected ? (
+                    <Login
+                      onlogin={(uid) => {
+                        connection.dispatch(uid);
+                        verified.dispatch(verifiedType.connected);
+                      }}
+                    />
+                  ) : verifiedState === verifiedType.pending ? (
+                    "loading..."
+                  ) : (
+                    <Dashboard uid={connectionState} />
+                  )
+                }
+              </verified.Observer>
+            )}
+          </connection.Observer>
+          <PortalExit name="snackbar" />
+        </div>
+      </Theme>
     </i18n.Provider>
   );
 });

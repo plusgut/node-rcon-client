@@ -1,0 +1,9 @@
+{
+    "color-contrast-palette-low": "black",
+    "color-contrast-palette-lowMedium": "darkgrey",
+    "color-contrast-palette-medium": "grey",
+    "color-contrast-palette-highMedium": "lightgrey",
+    "color-contrast-palette-high": "white",
+
+    "color-accent": "blue"
+}

@@ -3,6 +3,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const { TsConfigPathsPlugin } = require("awesome-typescript-loader");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const sass = require("node-sass");
+const theme = require("./src/util/theme.json");
 
 module.exports = (env, argv) => ({
   context: path.join(__dirname, "src"),
@@ -31,6 +33,7 @@ module.exports = (env, argv) => ({
               sourceMap: true,
               modules: {
                 localIdentName: "[local]__[hash:base64:5]",
+                exportLocalsConvention: "camelCase",
               },
             },
           },
@@ -38,6 +41,18 @@ module.exports = (env, argv) => ({
             loader: "sass-loader",
             options: {
               sourceMap: true,
+              sassOptions: {
+                functions: {
+                  "theme($name)": function (name) {
+                    const key = name.getValue();
+                    if (key in theme) {
+                      return new sass.types.String(`var(--${key});`);
+                    }
+
+                    throw new Error(`Could not find theme variable ${key}`);
+                  },
+                },
+              },
             },
           },
         ],
@@ -84,6 +99,10 @@ module.exports = (env, argv) => ({
       chunkFilename: "css/[name].[hash].bundle.css",
     }),
   ],
+
+  node: {
+    __dirname: true,
+  },
 
   devServer:
     argv.mode === "development"
