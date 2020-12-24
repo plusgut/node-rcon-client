@@ -1,10 +1,11 @@
 import plusnew, { component, Props, store } from "@plusnew/core";
+import { LOADING } from "util/constants";
 
 type props = {
   type: "submit" | "button";
   disabled: boolean;
   onclick: () => unknown;
-  label: string;
+  label: string | typeof LOADING;
 };
 
 export default component(__dirname, (Props: Props<props>) => {
@@ -26,7 +27,9 @@ export default component(__dirname, (Props: Props<props>) => {
                 }
               }}
             >
-              {loadingState ? "loading..." : props.label}
+              {loadingState || props.label === LOADING
+                ? "loading..."
+                : props.label}
             </button>
           )}
         </loading.Observer>

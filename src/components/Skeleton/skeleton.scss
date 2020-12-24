@@ -1,0 +1,29 @@
+.mediumText {
+  width: 7.5rem
+}
+
+.skeleton {
+  display: inline-block;
+  height: 100%;
+  animation: pulse 2s ease-in-out infinite;
+  background: linear-gradient(
+      -90deg,
+      white 0%,
+      lightgrey 50%,
+      white 100%
+    );
+    background-size: 400% 400%;
+
+  &::before {
+    content: "\00a0";
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -135% 0%;
+  }
+}

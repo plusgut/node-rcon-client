@@ -15,7 +15,8 @@
   "author": "",
   "dependencies": {
     "@plusnew/core": "^1.5.3",
-    "@plusnew/driver-dom": "^1.2.0"
+    "@plusnew/driver-dom": "^1.2.0",
+    "@plusnew/i18n": "^0.2.1"
   },
   "devDependencies": {
     "@plusnew/enzyme-adapter": "^1.1.0",

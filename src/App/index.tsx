@@ -1,4 +1,5 @@
 import plusnew, { component, PortalExit, store } from "@plusnew/core";
+import i18n from "components/i18n";
 import localStoreFactory from "util/localStoreFactory";
 import { request } from "util/request";
 import style from "./app.scss";
@@ -34,29 +35,31 @@ export default component(__dirname, () => {
   }
 
   return (
-    <div class={style.container}>
-      <connection.Observer>
-        {(connectionState) => (
-          <verified.Observer>
-            {(verifiedState) =>
-              connectionState === null ||
-              verifiedState === verifiedType.notConnected ? (
-                <Login
-                  onlogin={(uid) => {
-                    connection.dispatch(uid);
-                    verified.dispatch(verifiedType.connected);
-                  }}
-                />
-              ) : verifiedState === verifiedType.pending ? (
-                "loading..."
-              ) : (
-                <Dashboard uid={connectionState} />
-              )
-            }
-          </verified.Observer>
-        )}
-      </connection.Observer>
-      <PortalExit name="snackbar" />
-    </div>
+    <i18n.Provider language={window.navigator.language.slice(0, 2)}>
+      <div class={style.container}>
+        <connection.Observer>
+          {(connectionState) => (
+            <verified.Observer>
+              {(verifiedState) =>
+                connectionState === null ||
+                verifiedState === verifiedType.notConnected ? (
+                  <Login
+                    onlogin={(uid) => {
+                      connection.dispatch(uid);
+                      verified.dispatch(verifiedType.connected);
+                    }}
+                  />
+                ) : verifiedState === verifiedType.pending ? (
+                  "loading..."
+                ) : (
+                  <Dashboard uid={connectionState} />
+                )
+              }
+            </verified.Observer>
+          )}
+        </connection.Observer>
+        <PortalExit name="snackbar" />
+      </div>
+    </i18n.Provider>
   );
 });

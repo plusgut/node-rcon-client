@@ -1,7 +1,9 @@
 import plusnew, { component, PortalEntrance, Props } from "@plusnew/core";
+import Skeleton from "components/Skeleton";
+import { LOADING } from "util/constants";
 
 type props = {
-  label: string;
+  label: string | typeof LOADING;
   onclose: () => void;
 };
 
@@ -21,7 +23,15 @@ export default component(
     return (
       <PortalEntrance name="snackbar">
         <Props>
-          {(props) => <div onclick={props.onclose}>{props.label}</div>}
+          {(props) => (
+            <div onclick={props.onclose}>
+              {props.label === LOADING ? (
+                <Skeleton size="mediumText" />
+              ) : (
+                props.label
+              )}
+            </div>
+          )}
         </Props>
       </PortalEntrance>
     );
